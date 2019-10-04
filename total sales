@@ -1,8 +1,10 @@
-def totalSales ():
-    housessold= 0
-    total= 0
-    soldhomes =int(input("how many homes sold?"))
-    for H in range( 1, soldhomes + 1):
-        numberhouse = ()
-        housessold += numberhouse
-        print('you sold {0} homes for total sale of ${1:,.2f}'.format(housessold, total))
+def calculate():
+    sales = []
+    total = 0
+    for i in range(7):
+        sale = input('Enter a house\'s sales ')
+        sales.append(sale)
+        total += float(sale)
+    print(sales)
+    print(total)
+calculate()
