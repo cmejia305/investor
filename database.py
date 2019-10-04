@@ -1,26 +1,35 @@
-create table cohort2
-(
-    user_id serial primary key,
-    first_name text not null,
-    last_name text not null,
-    phone_number text not null
-)
+import psycopg2
+userName = ""
+password = ""
+try:
+    conn = psycopg2.connect(
+        database="Invest",
+        user="postgres",
+        password="6108",
+        host="127.0.0.1",
+        port="5432"
+    )
+
+   def retrieveAllUserInfo(user, passW):
+        cursor = conn.cursor()
+        cursor.execute(
+            f"SELECT * FROM auth WHERE username='{user}' AND pass='{passW}'")
+        rows = cursor.fetchall()
+        if(rows):
+            for row in rows:
+                role = row[2]
+            if(role == "administrator"):
+                print(f"{user}, you have been authenticated. You're an admnistrator")
+            else:
+                print(f"{user}, you have been authenticated. You're a user")
+        else:
+            print("User does not exist")
+        cursor.close()
+    userNameInput = input("Enter your username >> ")
+    passwordInput = input("Enter your password >> ")
+    retrieveAllUserInfo(userNameInput, passwordInput)
 ​
-insert into cohort2(first_name, last_name, phone_number)
-values('Julia', 'Otano', '7653332222'),
-('Pedro', 'Otano', '7653332222'),
-('Juan', 'Otano', '7653332222')
+
 ​
-​
-select * from cohort2 order by user_id asc
-​
-delete from cohort2 where user_id = 14
-​
-update cohort2 set first_name = 'Dunieski' where user_id = 8
-​
-select user_id, first_name from cohort2 where user_id = 8
-​
-​
-​
-CREATE SEQUENCE serial START 1
-​
+except (Exception, psycopg2.Error) as error:
+    print("Error while fetching data frm your database", error)
