@@ -3,14 +3,14 @@ userName = ""
 password = ""
 try:
     conn = psycopg2.connect(
-        database="Invest",
+        database="invest",
         user="postgres",
         password="6108",
         host="127.0.0.1",
         port="5432"
     )
 
-   def retrieveAllUserInfo(user, passW):
+    def retrieveAllUserInfo(user, passW):
         cursor = conn.cursor()
         cursor.execute(
             f"SELECT * FROM auth WHERE username='{user}' AND pass='{passW}'")
@@ -28,8 +28,5 @@ try:
     userNameInput = input("Enter your username >> ")
     passwordInput = input("Enter your password >> ")
     retrieveAllUserInfo(userNameInput, passwordInput)
-​
-
-​
 except (Exception, psycopg2.Error) as error:
     print("Error while fetching data frm your database", error)
